@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        <script type="text/javascript">
+            var spData = null;
+            function doData(json) {
+                spData = json.feed.entry;
+            }
+            
+            function addevent(list, year, endyear, headline, text) {
+                if (year == null) return null;
+                // console.log(year)
+                var li = $("<li/>");
+                list.append(li);
+
+                var div = $("<div/>");
+                li.append(div);
+
+                var years = year.toString();
+                if (endyear != null) {
+                    years = years + " - " + endyear.toString()
+                }
+                var span = $("<span/>")
+                div.append(span.text(years));
+
+                var h3 = $("<h3/>");
+                div.append(h3.text(headline));
+                div.append($("<p/>").html(text));
+
+            }
+
+            function drawList(parent) {
+                var list = $("<ul/>");
+                parent.append(list);
+                return list;
+            }
+            
+            function readData(parent) {
+                var data = spData;
+                var list = drawList(parent);
+                
+                for(var r=0; r<data.length; r++) {
+                    var cell = data[r]["gs$cell"];
+                    var val = cell["$t"];
+                    if (cell.row < 3) {
+                        continue;
+                    }
+                    if (cell.col == 1) { //year
+
+                        addevent(list, year, endyear, headline, text);
+                        var year = val; //parse to str
+                        var endyear = null;
+                        var headline = null;
+                        var text = null;
+                    }
+
+                    else if (cell.col == 5) { // end year
+                        var endyear = val;
+                    }
+
+                    else if (cell.col == 10) { // headline
+                        var headline = val;
+                    }
+
+                    else if (cell.col == 11) { //text
+                        var text = val;
+                    }
+
+                }
+                addevent(list, year, endyear, headline, text);
+            }
+            
+            $(document).ready(
+                function(){
+                    readData(
+                        $("#data")
+                        ); 
+                }
+            );
+
+        </script>
+        
+        <script src="https://spreadsheets.google.com/feeds/cells/1ThuAX5TJ3aAvjuUuaxFoYITKx14DDiHOAG01M0OmZLY/1/public/values?alt=json-in-script&callback=doData"></script>
+
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Injured Workers in Ontario <small class="text-muted">A Timeline</small> </h1> 
+            <div   id="data"/>
+        </div>
+    </body>
+</html> 
