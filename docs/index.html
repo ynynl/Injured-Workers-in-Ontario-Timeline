@@ -40,12 +40,12 @@
             div.append(h3.text(headline));
 
             var row = $("<div  class='row rows-print-as-pages' />")
-            var textcol = $("<div class='col-sm-6 col-md-8 order-last order-sm-1'/>")
+            var textcol = $("<div class=' col-md-6 order-last order-md-1'/>")
             textcol.append("<p/>").html(text);
             row.append(textcol);
 
             if (imgsrc) {
-                var imgcol = $("<div class='col order-first order-sm-2'/>");
+                var imgcol = $("<div class='col order-first order-md-2'/>");
                 var img = $("<img/>");
                 img.attr("src", imgsrc);
                 img.attr("alt", cap);
@@ -141,22 +141,22 @@
     <script
         src="https://spreadsheets.google.com/feeds/cells/1ThuAX5TJ3aAvjuUuaxFoYITKx14DDiHOAG01M0OmZLY/1/public/values?alt=json-in-script&callback=doData"></script>
 
-        <style>
-            *,
-            *:before,
-            *:after {
-                box-sizing: border-box;
+    <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+
+        @media print {
+            .rows-print-as-pages .row {
+                page-break-after: before;
+                display: block;
             }
-    
-            @media print {
-                .rows-print-as-pages .row {
-                    page-break-after: before;
-                    display: block;
-                }
-            }
-        </style>
-        
-    </head>
+        }
+    </style>
+
+</head>
 
 <body>
     <div class="container">
