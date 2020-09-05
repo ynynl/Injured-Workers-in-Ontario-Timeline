@@ -2,20 +2,14 @@
 <html>
 
 <head>
-    <style>
-        *,
-        *:before,
-        *:after {
-            box-sizing: border-box;
-        }
-    </style>
-    
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -29,7 +23,7 @@
         function addevent(list, year, endyear, headline, text, imgsrc, cap) {
             if (year == null) return null;
             // console.log(year)
-            var li = $("<li/>");
+            var li = $("<li class='list-group-item'/>");
             list.append(li);
 
             var div = $("<div/>");
@@ -45,7 +39,7 @@
             var h3 = $("<h3/>");
             div.append(h3.text(headline));
 
-            var row = $("<div  class='row' />")
+            var row = $("<div  class='row rows-print-as-pages' />")
             var textcol = $("<div class='col-sm-6 col-md-8 order-last order-sm-1'/>")
             textcol.append("<p/>").html(text);
             row.append(textcol);
@@ -83,7 +77,7 @@
         // }
 
         function drawList(parent) {
-            var list = $("<ul/>");
+            var list = $("<ul class='list-group list-group-flush'/>");
             parent.append(list);
             return list;
         }
@@ -147,16 +141,39 @@
     <script
         src="https://spreadsheets.google.com/feeds/cells/1ThuAX5TJ3aAvjuUuaxFoYITKx14DDiHOAG01M0OmZLY/1/public/values?alt=json-in-script&callback=doData"></script>
 
-</head>
+        <style>
+            *,
+            *:before,
+            *:after {
+                box-sizing: border-box;
+            }
+    
+            @media print {
+                .rows-print-as-pages .row {
+                    page-break-after: before;
+                    display: block;
+                }
+            }
+        </style>
+        
+    </head>
 
 <body>
     <div class="container">
-        <h1>Injured Workers in Ontario <small class="text-muted">A Timeline</small> </h1>
+        <div class="jumbotron">
+            <h1>Injured Workers in Ontario <small class="text-muted ">A Timeline</small> </h1>
+        </div>
         <div id="data" />
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
